@@ -22,10 +22,14 @@ namespace PUBGAddon
         private IPAddress localIP;
         private IList<Tuple<String, String>> japanServerList;
         private IList<Tuple<String, String>> koreaServerList;
+        private BackgroundWorker packetCaptureWorker;
 
         public Form1()
         {
             InitializeComponent();
+            packetCaptureWorker = new BackgroundWorker();
+            packetCaptureWorker.DoWork += new DoWorkEventHandler(worker_DoWork);
+            packetCaptureWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(worker_RunWorkerCompleted);
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -91,7 +95,7 @@ namespace PUBGAddon
             return true;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void worker_DoWork(object sender, DoWorkEventArgs e)
         {
             Dictionary<IpV4Address, int> IPDict = new Dictionary<IpV4Address, int>();
 
@@ -156,6 +160,21 @@ namespace PUBGAddon
                 textBox1.Text = "일본";
                 return;
             }
+        }
+
+        private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            button1.Enabled = true;
+            label3.Text = "";
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            button1.Enabled = false;
+            textBox1.Text = "";
+            textBox2.Text = "";
+            label3.Text = "검색중...";
+            packetCaptureWorker.RunWorkerAsync();
         }
 
         private void label2_Click(object sender, EventArgs e)
