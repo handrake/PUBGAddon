@@ -1,8 +1,12 @@
 # PUBGAddon
 
-아시아 서버 위치 검색기 
+아시아 서버 위치 검색기
 
 오고 가는 UDP 패킷을 이용하여 아마존 서버 IP를 찾습니다.
+
+## 다운로드
+
+[v0.0.1](https://github.com/handrake/PUBGAddon/releases/download/0.0.1/PUBGAddon.zip)
 
 ## 이용법
 
