@@ -56,12 +56,12 @@ namespace PUBGAddon
 
             serverList = new List<Tuple<String, List<Tuple<String, String>>>>();
 
-            for (int i = 0; i < tmpList.Count(); i++)
+            foreach (var t in tmpList)
             {
-                serverList.Add(Tuple.Create(tmpList[i].Item1, new List<Tuple<String, String>>()));
-                for (int j = 0; j < tmpList[i].Item2.Count(); j = j + 2)
+                serverList.Add(Tuple.Create(t.Item1, new List<Tuple<String, String>>()));
+                for (int j = 0; j < t.Item2.Count(); j = j + 2)
                 {
-                    serverList[i].Item2.Add(Tuple.Create(tmpList[i].Item2[j], tmpList[i].Item2[j + 1]));
+                    serverList.Last().Item2.Add(Tuple.Create(t.Item2[j], t.Item2[j + 1]));
                 }
             }
 
@@ -152,11 +152,11 @@ namespace PUBGAddon
 
             textBox2.Text = mostCommonIP;
 
-            for (int i = 0; i < serverList.Count(); i++)
+            foreach (var t in serverList)
             {
-                if (serverList[i].Item2.Any(x => IsIPInRange(mostCommonIP.ToString(), x.Item1, x.Item2)))
+                if (t.Item2.Any(x => IsIPInRange(mostCommonIP.ToString(), x.Item1, x.Item2)))
                 {
-                    textBox1.Text = serverList[i].Item1;
+                    textBox1.Text = t.Item1;
                     goto End;
                 }
             }
