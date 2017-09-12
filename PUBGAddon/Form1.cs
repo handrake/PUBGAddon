@@ -22,6 +22,7 @@ namespace PUBGAddon
         private IPAddress localIP;
         private IList<Tuple<String, List<Tuple<String, String>>>> serverList;
         private BackgroundWorker packetCaptureWorker;
+        private Dictionary<IpV4Address, int> IPDict;
 
         public Form1()
         {
@@ -96,7 +97,7 @@ namespace PUBGAddon
 
         private void worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            Dictionary<IpV4Address, int> IPDict = new Dictionary<IpV4Address, int>();
+            IPDict = new Dictionary<IpV4Address, int>();
 
             using (PacketCommunicator communicator = selectedDevice.Open(1024, PacketDeviceOpenAttributes.Promiscuous, 200))
             {
@@ -135,13 +136,16 @@ namespace PUBGAddon
                     }
                 }
             }
+        }
+
+        private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
             textBox1.Text = "알 수 없음";
 
             if (IPDict.Count() == 0)
             {
                 textBox2.Text = "";
-                return;
-
+                goto End;
             }
 
             String mostCommonIP = IPDict.Aggregate((a, b) => a.Value > b.Value ? a : b).Key.ToString();
@@ -153,13 +157,12 @@ namespace PUBGAddon
                 if (serverList[i].Item2.Any(x => IsIPInRange(mostCommonIP.ToString(), x.Item1, x.Item2)))
                 {
                     textBox1.Text = serverList[i].Item1;
-                    return;
+                    goto End;
                 }
             }
-        }
 
-        private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
+
+         End:
             button1.Enabled = true;
             label3.Text = "";
             this.ActiveControl = this.button1;
