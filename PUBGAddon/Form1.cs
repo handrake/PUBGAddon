@@ -22,6 +22,7 @@ namespace PUBGAddon
         private IPAddress localIP;
         private IList<Tuple<String, String>> japanServerList;
         private IList<Tuple<String, String>> koreaServerList;
+        private IList<Tuple<String, String>> usEast1ServerList;
         private BackgroundWorker packetCaptureWorker;
 
         public Form1()
@@ -51,9 +52,11 @@ namespace PUBGAddon
 
             String[] tmpList1 = ConfigurationManager.AppSettings["KoreaServerList"].Split('|');
             String[] tmpList2 = ConfigurationManager.AppSettings["JapanServerList"].Split('|');
+            String[] tmpList3 = ConfigurationManager.AppSettings["USEast1ServerList"].Split('|');
 
             koreaServerList = new List<Tuple<String, String>>();
             japanServerList = new List<Tuple<String, String>>();
+            usEast1ServerList = new List<Tuple<String, String>>();
 
             for (int i = 0; i < tmpList1.Count(); i = i + 2)
             {
@@ -63,6 +66,11 @@ namespace PUBGAddon
             for (int i = 0; i < tmpList2.Count(); i = i + 2)
             {
                 japanServerList.Add(Tuple.Create(tmpList2[i], tmpList2[i + 1]));
+            }
+
+            for (int i = 0; i < tmpList3.Count(); i = i + 2)
+            {
+                usEast1ServerList.Add(Tuple.Create(tmpList3[i], tmpList3[i + 1]));
             }
 
             this.ActiveControl = button1;
@@ -158,6 +166,12 @@ namespace PUBGAddon
             if (japanServerList.Any(x => IsIPInRange(mostCommonIP.ToString(), x.Item1, x.Item2)))
             {
                 textBox1.Text = "일본";
+                return;
+            }
+
+            if (usEast1ServerList.Any(x => IsIPInRange(mostCommonIP.ToString(), x.Item1, x.Item2)))
+            {
+                textBox1.Text = "미국 동부-1";
                 return;
             }
         }
