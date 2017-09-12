@@ -6,7 +6,7 @@
 
 ## 다운로드
 
-[v0.0.1](https://github.com/handrake/PUBGAddon/releases/download/0.0.1/PUBGAddon.zip)
+[v0.0.2](https://github.com/handrake/PUBGAddon/releases/download/v0.0.2/PUBGAddon-0.0.2.zip)
 
 ## 이용법
 
