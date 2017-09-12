@@ -20,9 +20,7 @@ namespace PUBGAddon
     {
         private PacketDevice selectedDevice;
         private IPAddress localIP;
-        private IList<Tuple<String, String>> japanServerList;
-        private IList<Tuple<String, String>> koreaServerList;
-        private IList<Tuple<String, String>> usEast1ServerList;
+        private IList<Tuple<String, List<Tuple<String, String>>>> serverList;
         private BackgroundWorker packetCaptureWorker;
 
         public Form1()
@@ -50,27 +48,20 @@ namespace PUBGAddon
 
             comboBox1.SelectedIndex = 0;
 
-            String[] tmpList1 = ConfigurationManager.AppSettings["KoreaServerList"].Split('|');
-            String[] tmpList2 = ConfigurationManager.AppSettings["JapanServerList"].Split('|');
-            String[] tmpList3 = ConfigurationManager.AppSettings["USEast1ServerList"].Split('|');
+            var tmpList = new List<Tuple<String, String[]>>();
+            tmpList.Add(Tuple.Create("한국", ConfigurationManager.AppSettings["KoreaServerList"].Split('|')));
+            tmpList.Add(Tuple.Create("일본", ConfigurationManager.AppSettings["JapanServerList"].Split('|')));
+            tmpList.Add(Tuple.Create("미국 동부-1", ConfigurationManager.AppSettings["USEast1ServerList"].Split('|')));
 
-            koreaServerList = new List<Tuple<String, String>>();
-            japanServerList = new List<Tuple<String, String>>();
-            usEast1ServerList = new List<Tuple<String, String>>();
+            serverList = new List<Tuple<String, List<Tuple<String, String>>>>();
 
-            for (int i = 0; i < tmpList1.Count(); i = i + 2)
+            for (int i = 0; i < tmpList.Count(); i++)
             {
-                koreaServerList.Add(Tuple.Create(tmpList1[i], tmpList1[i + 1]));
-            }
-
-            for (int i = 0; i < tmpList2.Count(); i = i + 2)
-            {
-                japanServerList.Add(Tuple.Create(tmpList2[i], tmpList2[i + 1]));
-            }
-
-            for (int i = 0; i < tmpList3.Count(); i = i + 2)
-            {
-                usEast1ServerList.Add(Tuple.Create(tmpList3[i], tmpList3[i + 1]));
+                serverList.Add(Tuple.Create(tmpList[i].Item1, new List<Tuple<String, String>>()));
+                for (int j = 0; j < tmpList[i].Item2.Count(); j = j + 2)
+                {
+                    serverList[i].Item2.Add(Tuple.Create(tmpList[i].Item2[j], tmpList[i].Item2[j + 1]));
+                }
             }
 
             this.ActiveControl = button1;
@@ -157,22 +148,13 @@ namespace PUBGAddon
 
             textBox2.Text = mostCommonIP;
 
-            if (koreaServerList.Any(x => IsIPInRange(mostCommonIP.ToString(), x.Item1, x.Item2)))
+            for (int i = 0; i < serverList.Count(); i++)
             {
-                textBox1.Text = "한국";
-                return;
-            }
-
-            if (japanServerList.Any(x => IsIPInRange(mostCommonIP.ToString(), x.Item1, x.Item2)))
-            {
-                textBox1.Text = "일본";
-                return;
-            }
-
-            if (usEast1ServerList.Any(x => IsIPInRange(mostCommonIP.ToString(), x.Item1, x.Item2)))
-            {
-                textBox1.Text = "미국 동부-1";
-                return;
+                if (serverList[i].Item2.Any(x => IsIPInRange(mostCommonIP.ToString(), x.Item1, x.Item2)))
+                {
+                    textBox1.Text = serverList[i].Item1;
+                    return;
+                }
             }
         }
 
