@@ -5,7 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 using PcapDotNet.Core;
 using PcapDotNet.Packets;
@@ -22,12 +22,16 @@ namespace PUBGAddon
         private IPAddress localIP;
         private IList<Tuple<String, List<Tuple<String, String>>>> serverList;
         private BackgroundWorker packetCaptureWorker;
+        private AutoResetEvent workerDoneEvent;
         private Dictionary<IpV4Address, int> IPDict;
 
         public Form1()
         {
             InitializeComponent();
             packetCaptureWorker = new BackgroundWorker();
+            workerDoneEvent = new AutoResetEvent(true);
+            packetCaptureWorker.WorkerSupportsCancellation = true;
+
             packetCaptureWorker.DoWork += new DoWorkEventHandler(worker_DoWork);
             packetCaptureWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(worker_RunWorkerCompleted);
         }
@@ -65,7 +69,8 @@ namespace PUBGAddon
                 }
             }
 
-            this.ActiveControl = button1;
+            this.ActiveControl = label1;
+            button2.Enabled = false;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -109,6 +114,11 @@ namespace PUBGAddon
                 }
                 for (int i = 0; i < 10; i++)
                 {
+                    if (packetCaptureWorker.CancellationPending)
+                    {
+                        e.Cancel = true;
+                        return;
+                    }
                     PacketCommunicatorReceiveResult result = communicator.ReceivePacket(out packet);
                     switch (result)
                     {
@@ -162,18 +172,18 @@ namespace PUBGAddon
             }
 
 
-         End:
-            button1.Enabled = true;
-            label3.Text = "";
-            this.ActiveControl = this.button1;
+        End:
+
+            if (button2.Enabled)
+            {
+                packetCaptureWorker.RunWorkerAsync();
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             button1.Enabled = false;
-            textBox1.Text = "";
-            textBox2.Text = "";
-            label3.Text = "검색중...";
+            button2.Enabled = true;
             packetCaptureWorker.RunWorkerAsync();
         }
 
@@ -193,6 +203,13 @@ namespace PUBGAddon
                     localIP = host.AddressList[i];
                 }
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            button2.Enabled = false;
+            button1.Enabled = true;
+            packetCaptureWorker.CancelAsync();
         }
     }
 }
