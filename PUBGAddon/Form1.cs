@@ -5,7 +5,6 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Windows.Forms;
 using PcapDotNet.Core;
 using PcapDotNet.Packets;
@@ -22,14 +21,12 @@ namespace PUBGAddon
         private IPAddress localIP;
         private IList<Tuple<String, List<Tuple<String, String>>>> serverList;
         private BackgroundWorker packetCaptureWorker;
-        private AutoResetEvent workerDoneEvent;
         private Dictionary<IpV4Address, int> IPDict;
 
         public Form1()
         {
             InitializeComponent();
             packetCaptureWorker = new BackgroundWorker();
-            workerDoneEvent = new AutoResetEvent(true);
             packetCaptureWorker.WorkerSupportsCancellation = true;
 
             packetCaptureWorker.DoWork += new DoWorkEventHandler(worker_DoWork);
