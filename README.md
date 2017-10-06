@@ -6,11 +6,11 @@
 
 ## 다운로드
 
-[v0.0.2](https://github.com/handrake/PUBGAddon/releases/download/v0.0.2/PUBGAddon-0.0.2.zip)
+[v0.0.2](https://github.com/handrake/PUBGAddon/releases/download/v0.0.2/PUBGAddOnSetup.msi)
 
 ## 이용법
 
-PUBGAddon.zip 파일을 다운, 압축을 풀고 PUBGAddon.exe을 실행한 후 *사람들이 총 쏘는 배그 로비에 접근한 다음* 서버 검색 버튼을 누릅니다.
+PUBGAddOnSetup.msi 파일을 다운, 설치를 마치고 PUBGAddon.exe을 실행한 후 *사람들이 총 쏘는 배그 로비에 접근한 다음* 서버 검색 버튼을 누릅니다.
 
 ## 주의점
 
