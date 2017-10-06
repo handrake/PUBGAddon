@@ -1,4 +1,4 @@
-# PUBGAddon
+# PUBGAddon [![Build Status](https://travis-ci.org/handrake/PUBGAddon.svg?branch=master)](https://travis-ci.org/handrake/PUBGAddon)
 
 아시아 서버 위치 검색기
 
