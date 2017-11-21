@@ -10,10 +10,10 @@
 
 ## 필요 프로그램
 
-[WinPcap](http://www.winpcap.org)
-[.NET Framework 4.5](https://www.microsoft.com/en-us/download/details.aspx?id=30653)
-Microsoft Visual C++ 2010 Redistributable Package [x86](http://www.microsoft.com/en-us/download/details.aspx?id=5555) [x64](http://www.microsoft.com/en-us/download/details.aspx?id=14632)
-[Microsoft Visual C++ 2013 Redistributable Package](https://www.microsoft.com/en-us/download/details.aspx?id=40784)
+* [WinPcap](http://www.winpcap.org)
+* [.NET Framework 4.5](https://www.microsoft.com/en-us/download/details.aspx?id=30653)
+* Microsoft Visual C++ 2010 Redistributable Package [x86](http://www.microsoft.com/en-us/download/details.aspx?id=5555) [x64](http://www.microsoft.com/en-us/download/details.aspx?id=14632)
+* [Microsoft Visual C++ 2013 Redistributable Package](https://www.microsoft.com/en-us/download/details.aspx?id=40784)
 
 ## 이용법
 
