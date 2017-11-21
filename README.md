@@ -20,4 +20,4 @@ ping은 내용이 빈 Http Request를 통해 404 Response 반응 속도를 보�
 
 현재는 아시아와 북미 서버에서만 작동합니다.
 
-<img src="https://i.imgur.com/1kNqXhM.png" width="600">
+<img src="https://i.imgur.com/1kNqXhM.png" width="400">
