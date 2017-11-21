@@ -12,6 +12,7 @@ using PcapDotNet.Packets.IpV4;
 using System.Net;
 using System.Net.Sockets;
 using System.Configuration;
+using System.Diagnostics;
 
 namespace PUBGAddon
 {
@@ -145,8 +146,27 @@ namespace PUBGAddon
             }
         }
 
+        private async void getLatency()
+        {
+            WebRequest request = WebRequest.Create((new UriBuilder(textBox2.Text)).ToString());
+            Stopwatch sw = Stopwatch.StartNew();
+            try
+            {
+                WebResponse response = await request.GetResponseAsync();
+            }
+            catch
+            {
+            }
+            finally
+            {
+                sw.Stop();
+                textBox3.Text = sw.ElapsedMilliseconds.ToString() + "ms";
+            }
+        }
+
         private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+            bool serverFound = false;
             textBox1.Text = "알 수 없음";
 
             if (IPDict.Count() == 0)
@@ -164,12 +184,18 @@ namespace PUBGAddon
                 if (t.Item2.Any(x => IsIPInRange(mostCommonIP.ToString(), x.Item1, x.Item2)))
                 {
                     textBox1.Text = t.Item1;
+                    serverFound = true;
                     goto End;
                 }
             }
 
+            textBox3.Text = "";
 
         End:
+            if (serverFound)
+            {
+                getLatency();
+            }
 
             if (button2.Enabled)
             {
