@@ -6,7 +6,7 @@
 
 ## 다운로드
 
-[v0.0.3](https://github.com/handrake/PUBGAddon/releases/download/v0.0.2/PUBGAddOnSetup.msi)
+[v0.0.3](https://github.com/handrake/PUBGAddon/releases/download/0.0.3/PUBGAddOnSetup.msi)
 
 ## 이용법
 
