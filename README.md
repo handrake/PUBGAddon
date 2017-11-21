@@ -8,6 +8,13 @@
 
 [v0.0.3](https://github.com/handrake/PUBGAddon/releases/download/0.0.3/PUBGAddOnSetup.msi)
 
+## 필요 프로그램
+
+[WinPcap](http://www.winpcap.org)
+[.NET Framework 4.5](https://www.microsoft.com/en-us/download/details.aspx?id=30653)
+Microsoft Visual C++ 2010 Redistributable Package [x86](http://www.microsoft.com/en-us/download/details.aspx?id=5555) [x64](http://www.microsoft.com/en-us/download/details.aspx?id=14632)
+[Microsoft Visual C++ 2013 Redistributable Package](https://www.microsoft.com/en-us/download/details.aspx?id=40784)
+
 ## 이용법
 
 PUBGAddOnSetup.msi 파일을 다운, 설치를 마치고 PUBGAddon.exe을 실행한 후 *사람들이 총 쏘는 배그 로비에 접근한 다음* 서버 검색 버튼을 누릅니다.
