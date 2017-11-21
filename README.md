@@ -18,4 +18,8 @@ PUBGAddOnSetup.msi 파일을 다운, 설치를 마치고 PUBGAddon.exe을 실행
 
 현재는 아시아와 북미 서버에서만 작동합니다.
 
+<<<<<<< HEAD
 <img src="https://i.imgur.com/V287wSx.png" width="600">
+=======
+<img src="https://i.imgur.com/V287wSx.png" width="400">
+>>>>>>> master
