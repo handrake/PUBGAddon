@@ -23,6 +23,8 @@ namespace PUBGAddon
         private IList<Tuple<String, List<Tuple<String, String>>>> serverList;
         private BackgroundWorker packetCaptureWorker;
         private Dictionary<IpV4Address, int> IPDict;
+        private bool serverFound;
+        private string lastIP;
 
         public Form1()
         {
@@ -69,6 +71,7 @@ namespace PUBGAddon
 
             this.ActiveControl = label1;
             button2.Enabled = false;
+            serverFound = false;
         }
 
         private void label1_Click(object sender, EventArgs e)
@@ -166,12 +169,13 @@ namespace PUBGAddon
 
         private void worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            bool serverFound = false;
-            textBox1.Text = "알 수 없음";
-
             if (IPDict.Count() == 0)
             {
-                textBox2.Text = "";
+                goto ServerNotFound;
+            }
+
+            if (serverFound && IPDict.ContainsKey(new IpV4Address(lastIP)))
+            {
                 goto End;
             }
 
@@ -184,14 +188,18 @@ namespace PUBGAddon
                 if (t.Item2.Any(x => IsIPInRange(mostCommonIP.ToString(), x.Item1, x.Item2)))
                 {
                     textBox1.Text = t.Item1;
+                    lastIP = textBox2.Text;
                     serverFound = true;
                     goto End;
                 }
             }
-
+            ServerNotFound:
+            textBox1.Text = "알 수 없음";
+            textBox2.Text = "";
             textBox3.Text = "";
+            serverFound = false;
 
-        End:
+            End:
             if (serverFound)
             {
                 getLatency();
