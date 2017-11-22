@@ -464,15 +464,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:PUBGAddOnSetup"
-        "ProductCode" = "8:{7E75AC5C-73AF-4C16-9304-A5F569714B8E}"
-        "PackageCode" = "8:{0D0F80C7-C295-40C0-B46B-1D4F1E6CE03A}"
+        "ProductCode" = "8:{00F549EF-C112-49B8-908F-634B21363762}"
+        "PackageCode" = "8:{A6D5B256-D52F-4E10-9CAE-FBA0BBADF70B}"
         "UpgradeCode" = "8:{98B3BE69-20BF-431F-AC53-35EF2084A6E3}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:0.0.3"
+        "ProductVersion" = "8:0.0.4"
         "Manufacturer" = "8:handrake"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -1000,7 +1000,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_66B3381B0A6B43FBA57D8189C2A356B1"
             {
-            "SourcePath" = "8:..\\PUBGAddon\\obj\\Release\\PUBGAddon.exe"
+            "SourcePath" = "8:..\\PUBGAddon\\obj\\Debug\\PUBGAddon.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_7DB04E69171549EEA590379C5A92BD4A"
